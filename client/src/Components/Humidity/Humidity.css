@@ -1,0 +1,24 @@
+.Humidity {
+    width: 176px;
+    height: 184px;
+    background-color: #141C38;
+    border-radius: 10px;
+    position: relative;
+}
+
+.HumidityContainer {
+    display: flex;
+    flex-direction: column;
+    padding-left: 16px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.pb77 {
+    padding-bottom: 77px;
+}
+
+.pb16 {
+    padding-bottom: 16px;
+}

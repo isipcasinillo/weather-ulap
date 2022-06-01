@@ -1,0 +1,81 @@
+/* 358/32/
+*/
+
+.DayCard {
+
+    width: 358px;
+    height: 32px;
+    display: flex;
+    background-color: white;
+    margin-bottom: 8px;
+}
+
+.CurrentDay {
+    margin-left: 16px;
+}
+
+.CurrentDate {
+    margin-left: 72px;
+}
+.CurrentHighTemp {
+    margin-left: 87px;
+}
+.CurrentLowTemp {
+    margin-left: 8px;
+}
+.CurrentIcon {
+    margin-left: 16px;
+    display: flex;
+    align-items: center;
+}
+.currentIconRain {
+    display: flex;
+    align-items: center;
+    margin-left: 4px;
+}
+.p16 {
+    font-size: 16px;
+}
+.p8 {
+    font-size: 8px;
+}
+
+.s16 {
+    width: 16px;
+    height: 16px;
+    text-align: center
+}
+
+.asc {
+    align-self:  center;
+}
+
+
+
+/* 535
+148
+*/
+
+ @media only screen and (min-width: 1000px) {
+     .DayCard {
+         width: 550px;
+
+    }
+    .CurrentHighTemp {
+        margin-left: 300px;
+    }
+    .CurrentDate {
+        position: relative;
+        left: 150px;
+        margin-left: 0px;
+    }
+    .CurrentLowTemp {
+        margin-left: 25px;
+    }
+    .CurrentIcon {
+        margin-left: 16px;
+    }
+    .currentIconRain {
+        margin-left: 16px;
+    }
+ }

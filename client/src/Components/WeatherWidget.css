@@ -1,0 +1,49 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #F2F2F2;
+}
+
+.WeatherWidget {
+    width: 358px;
+    margin: auto;
+    height: 144px;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 32px;
+}
+
+.WidgetData {
+    margin-left: 16px;
+    margin-bottom: 32px;
+}
+
+.WidgetImg {
+    width: 80px;
+    height: 80px;
+    margin-right: 16px;
+    margin-bottom: 32px;
+}
+
+.d {
+    display: flex;
+    flex-direction: row;
+}
+
+.pr4 {
+    padding-right: 4px;
+}
+
+@media only screen and (min-width: 1000px) {
+    .WeatherWidget {
+        height: 272px;
+        width: 554px;
+    }
+}

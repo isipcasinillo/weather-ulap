@@ -1,0 +1,25 @@
+.Temperature {
+    width: 176px;
+    height: 184px;
+    background-color: #141C38;
+    border-radius: 10px;
+    position: relative;
+}
+
+.TemperatureContainer {
+    display: flex;
+    flex-direction: column;
+    padding-left: 16px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.HiLowTemp {
+    display: flex;
+
+}
+
+.pdl30 {
+    padding-left: 30px;
+}

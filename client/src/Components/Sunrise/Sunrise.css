@@ -1,0 +1,16 @@
+.UvIndex {
+    width: 176px;
+    height: 184px;
+    background-color: #141C38;
+    border-radius: 10px;
+    position: relative;
+}
+
+.UvIndexContainer {
+    display: flex;
+    flex-direction: column;
+    padding-left: 16px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}

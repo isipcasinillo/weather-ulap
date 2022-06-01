@@ -1,0 +1,24 @@
+.Snapshot {
+    display:grid;
+    grid-template-columns: 176px 176px ;
+    grid-template-rows: 184px 184px;
+    grid-column-gap: 8px;
+    grid-row-gap: 8px;
+    justify-content: center;
+}
+
+.help {
+    display: flex;
+
+}
+
+
+@media only screen and (min-width: 1000px) {
+    .Snapshot {
+        grid-template-columns: 176px 176px 176px 176px 176px 176px;
+        grid-template-rows: 100%;
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+        justify-content: space-between;
+    }
+}

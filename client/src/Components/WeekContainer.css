@@ -1,0 +1,15 @@
+.pbm32 {
+    margin-bottom: 32px;
+}
+.WeekContainerComponent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+@media only screen and (min-width: 1000px) {
+    .WeekContainerComponent {
+        align-items: flex-end
+    }
+ }
