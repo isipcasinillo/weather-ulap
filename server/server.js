@@ -9,8 +9,6 @@ const path = require('path');
 
 const { typeDefs, resolvers } = require('./schemas');
 
-// imports the mongoose db
-const db = require('./config/connection');
 const app = express();
 // port used for the server or using localhost 3001
 const PORT = process.env.PORT || 3001;
@@ -44,9 +42,9 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-db.once('open', () => {
-  app.listen(PORT, () => {
-    console.log(`API server running on port ${PORT}!`);
-    console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
-  });
+
+app.listen(PORT, () => {
+  console.log(`API server running on port ${PORT}!`);
+  console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
 });
+

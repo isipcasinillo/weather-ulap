@@ -1,9 +1,9 @@
 {
-  "name": "heroku-app",
+  "name": "weather-ulap",
   "version": "1.0.0",
   "description": "",
   "main": "server/server.js",
-  "homepage": "https://isipcasinillo.github.io/heroku-app",
+  "homepage": "https://isipcasinillo.github.io/weather-ulap",
   "engines": {
     "node": "16.4.2"
   },
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/isipcasinillo/heroku-app.git"
+    "url": "git+https://github.com/isipcasinillo/weather-ulap.git"
   },
   "keywords": [],
   "author": "",
