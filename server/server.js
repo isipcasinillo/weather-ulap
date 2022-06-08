@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3001;
 require('dotenv').config({ path: 'ENV_FILENAME' });
 // runs instance of Apollo Server and uses parameters
 
-/* 
+/*
  had to downgrade from apollo-server-express version 3 -> 2
 */
 const server = new ApolloServer({
