@@ -14,6 +14,9 @@ function WeatherWidget() {
     const [dataFromDb, setDataFromDb] = useState({})
     const [isLoading, setLoading] = useState(true)
     let db = new Localbase('weatherDb')
+    useEffect(() => {
+        getDataDb()
+    }, [])
     // sets the value input from search
     const handleCityText = (event) => {
         const { value } = event.target
@@ -41,19 +44,20 @@ function WeatherWidget() {
         }
 
     }
+
     // function called to delete document in the indexdb
-    const deleteDataDb = async (cityName) => {
+    const deleteDataDb = async () => {
         try {
-            await db.collection('weatherDb').doc({ city: cityName }).delete()
+            await db.collection('weatherDb').doc({ city: CurrentCityText }).delete()
         } catch (e) {
             console.log(e)
         }
 
     }
 
-    const getDataDb = async (cityName) => {
+    const getDataDb = async () => {
         try {
-            const data = await db.collection('weatherDb').doc({ city: cityName }).get()
+            const data = await db.collection('weatherDb').doc({ city: CurrentCityText }).get()
             console.log(data)
             const datadb = await setDataFromDb(data)
             return datadb
@@ -63,88 +67,85 @@ function WeatherWidget() {
         }
     }
 
-    const checkIfExpired = async (cityName) => {
+    const checkIfExpired = async () => {
         const now = new Date().getTime()
-        // try {
-        //     const datafromDbisExpired = await db.collection('weatherDb').doc({ city: cityName }).get()
-        //     console.log(datafromDbisExpired)
-        //     if (typeof datafromDbisExpired === 'undefined') {
-        //         return true
-        //     }
-        //     if (datafromDbisExpired.expire < now) {
-        //         console.log(`checkDatabase() has found that the entry is expired and now will perform a delete, fetch, add to refresh data`)
-        //         await deleteDataDb(cityName)
-        //         const response = await FetchCityByName(cityName)
-        //         await addDataToDb(response, cityName)
-        //         return true
-        //     }
-        //     return false
-        // } catch (e) {
-        //     console.log(e)
-        // }
-
-    }
-
-    // const checkDatabase = async (cityName) => {
-    //     try {
-    //         const datafromDb = await db.collection('weatherDb').doc({ city: cityName }).get()
-    //         if (typeof datafromDb === 'undefined') {
-    //             console.log(`checkDatabase() has found no entry with this function ${cityName} and will perform an API Call`)
-    //             const response = await FetchCityByName(cityName)
-    //             console.log(response)
-    //             // await addDataToDb(response, cityName)
-    //             // return false
-    //         }
-    //         return true
-    //     } catch (e) {
-    //         console.log(e)
-    //     }
-
-    // }
-
-    async function SubmitRequest() {
-        const cityName = CurrentCityText
-        // if submission is left blank
-        if (cityName === '') return
-        console.log('submit request ran')
-        await FetchCityByName(cityName)
-
-    }
-
-
-    // fetches using the variable then calls on function below
-    const FetchCityByName = async (cityName) => {
         try {
-            const cityNameData = await getWeather({ variables: { cityname: cityName } })
-            console.log(cityNameData)
-            const { lon, lat } = cityNameData.data.getCityByName.coord
-            const fetchData = await FetchCityByCoord(lon, lat)
-            return fetchData
+            const xy = await db.collection('weatherDb').doc({ city: CurrentCityText }).get()
+            if(!xy) {
+                console.log('check if expired is undefined')
+                const cityNameData = await getWeather({ variables: { cityname: CurrentCityText } })
+                await addDataToDb(cityNameData, CurrentCityText)
+                return true
+            }
+            // this is expired
+            const datafromDbisExpired = await db.collection('weatherDb').doc({ city: CurrentCityText }).get()
+            console.log(datafromDbisExpired.expire)
+            if (await datafromDbisExpired.expire < now) {
+                console.log(`checkDatabase() has found that the entry is expired and now will perform a delete, fetch, add to refresh data`)
+                await deleteDataDb()
+                const response = await FetchCityByName(CurrentCityText)
+                await addDataToDb(response, CurrentCityText)
+                return true
+            }
+            console.log('not expired')
+            return false
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const checkDatabase = async () => {
+        const isDocumentinDb = await db.collection('weatherDb').doc({ city: CurrentCityText }).get()
+        try {
+            // if document does not exist in database
+            if (!isDocumentinDb) {
+                const fetchFromApi = await FetchCityByName()
+                await addDataToDb(fetchFromApi, CurrentCityText)
+                // returns false because function checks if data is in database
+                return false
+            }
+                // returns true if document exists in database
+                return true
         } catch (e) {
             console.log(e)
         }
 
-
+    }
+    const SubmitRequest = async(e) =>{
+        e.preventDefault()
+        await checkDatabase()
+        await checkIfExpired()
+        await getDataDb()
+    }
+    
+    // fetches using the variable then calls on function below to call with lon and lat
+    const FetchCityByName = async () => {
+        try { 
+            const getWeatherApiResponse = await getWeather({ variables: { cityname: CurrentCityText } })
+            const { lon, lat } = getWeatherApiResponse.data.getCityByName.coord
+            await FetchCityByCoord(lon, lat)
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     // fetches using the lon and lat from FetchCityByName
     const FetchCityByCoord = async (lon, lat) => {
-        const cityCoordData = await getWeatherLocation({ variables: { lon: lon, lat: lat } })
-        const cityCoordDataParse = cityCoordData.data.getCityByLocation
-        console.log(cityCoordDataParse)
-        return cityCoordDataParse
+        const getWeatherLocationResponse = await getWeatherLocation({ variables: { lon: lon, lat: lat } })
+        const ResponseData = getWeatherLocationResponse.data.getCityByLocation
+        return ResponseData
     }
 
     return (
         <>
-            <form onSubmit={(e) => SubmitRequest(e)}>
-                <label >
-                    Name:
-                    <input type="text" value={CurrentCityText} onChange={handleCityText} />
-                </label>
-                <input type="submit" value="Submit" />
-            </form>
-
+        <form onSubmit={(e) => SubmitRequest(e)}>
+            <label >
+                Name:
+                <input type="text" value={CurrentCityText} onChange={handleCityText} />
+            </label>
+            <input type="submit" value="Submit" />
+        </form>
+            
             <div className='WeatherWidget'>
 
                 {dataFromDb &&
