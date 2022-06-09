@@ -29,6 +29,7 @@ export const QUERY_CITY_LOCATION = gql`
         max
       }
       pop
+      dt
       weather{
         id
         icon
