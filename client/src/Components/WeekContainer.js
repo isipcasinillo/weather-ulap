@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import WeekElement from './WeekElement'
 import './WeekContainer.css'
 import ApiContext from './ApiContext'
 function WeekContainer() {
 
-  const { dataFromDb, isLoading, arrayData } = useContext(ApiContext)
+  const { arrayData } = useContext(ApiContext)
 
   return (
     <>
@@ -13,9 +13,10 @@ function WeekContainer() {
         {arrayData &&
           arrayData.slice(1).map((day, index) => {
             if (index === 0) {
-              return <WeekElement key={index} hitemp={day.temp.max} lowtemp={day.temp.min} pop={day.pop} dt={day.dt} today={'Today'} />
+              return <WeekElement key={index} icon={day.weather[0].icon} hitemp={day.temp.max} lowtemp={day.temp.min} pop={day.pop * 100} dt={day.dt} today={'Today'} />
             }
-            return <WeekElement key={index} hitemp={day.temp.max} lowtemp={day.temp.min} pop={day.pop} dt={day.dt} />
+            return <WeekElement key={index} icon={day.weather[0].icon} hitemp={day.temp.max} lowtemp={day.temp.min} pop={day.pop * 100
+            } dt={day.dt} />
           }
 
           )}

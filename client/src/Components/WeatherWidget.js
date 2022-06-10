@@ -3,7 +3,8 @@ import './WeatherWidget.css'
 import cloud from '../utils/cloud.svg'
 import ApiContext from './ApiContext'
 function WeatherWidget() {
-    const { dataFromDb, isLoading } = useContext(ApiContext)
+    const { dataFromDb, hourlyData, isLoading, arrayData } = useContext(ApiContext)
+    const weather = ` http://openweathermap.org/img/wn/${arrayData[1]?.weather[0].icon}@4x.png`
     return (
 
         <>
@@ -13,8 +14,7 @@ function WeatherWidget() {
                         <div className='h32 p32 pdb8'>
                             {isLoading ?
                                 <div>.....</div> :
-                                <div>{Math.floor(dataFromDb.metadata.daily[1].temp.max)}° </div>
-
+                                <div>{Math.floor(hourlyData[0]?.temp)} ° </div>
                             }
 
                         </div>
@@ -33,8 +33,10 @@ function WeatherWidget() {
                     </div>}
 
                 <div>
-                    <img className='WidgetImg' src={cloud} alt="weather-icon">
-                    </img>
+                    {isLoading ?
+                        <img className='WidgetImg' src={cloud} alt="weather-icon" /> :
+                        <img className='WidgetImg' src={weather} alt="weather-icon" />
+                    }
                 </div>
             </div>
         </>

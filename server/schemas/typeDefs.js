@@ -41,6 +41,7 @@ const typeDefs = gql`
 
     }
     type Hourly {
+        dt: Int
         temp: Float
         humidity: Int
         weather: [Weather]

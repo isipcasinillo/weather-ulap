@@ -15,23 +15,31 @@
 }
 
 .CurrentDate {
-    margin-left: 72px;
+    position:absolute;
+    margin-left: 120px;
 }
 .CurrentHighTemp {
-    margin-left: 87px;
+position:absolute;
+    margin-left: 232px;
 }
 .CurrentLowTemp {
-    margin-left: 8px;
+    position:absolute;
+    margin-left: 272px;
 }
 .CurrentIcon {
-    margin-left: 16px;
-    display: flex;
-    align-items: center;
+  position:absolute;
+    margin-left: 300px;
+
+}
+.CurrentIconCloud {
+    display: fle
 }
 .currentIconRain {
     display: flex;
     align-items: center;
-    margin-left: 4px;
+    position:absolute;
+    margin-left: 330px;
+    margin-top:8px;
 }
 .p16 {
     font-size: 16px;
@@ -41,8 +49,8 @@
 }
 
 .s16 {
-    width: 16px;
-    height: 16px;
+    width: 32px;
+    height: 32px;
     text-align: center
 }
 
@@ -62,20 +70,18 @@
 
     }
     .CurrentHighTemp {
-        margin-left: 300px;
+        margin-left: 364px;
     }
     .CurrentDate {
-        position: relative;
-        left: 150px;
-        margin-left: 0px;
+        margin-left:185px;
     }
     .CurrentLowTemp {
-        margin-left: 25px;
+        margin-left: 413px;
     }
     .CurrentIcon {
-        margin-left: 16px;
+        margin-left: 471px;
     }
     .currentIconRain {
-        margin-left: 16px;
+        margin-left: 510px;
     }
  }

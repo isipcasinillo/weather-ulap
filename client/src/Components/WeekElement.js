@@ -2,7 +2,8 @@ import React from 'react'
 import './WeekElement.css'
 import cloud from './../utils/cloud.svg'
 import Moment from 'react-moment';
-function WeekElement({ hitemp, lowtemp, pop, dt, today }) {
+function WeekElement({ hitemp, lowtemp, pop, dt, today, icon }) {
+  const weather = ` http://openweathermap.org/img/wn/${icon}@4x.png`
   const currentDate = new Date(dt * 1000)
   return (
     <>
@@ -17,7 +18,7 @@ function WeekElement({ hitemp, lowtemp, pop, dt, today }) {
         <div className='CurrentHighTemp asc p16'>{Math.floor(hitemp)}°</div>
         <div className='CurrentLowTemp asc p16'>{Math.floor(lowtemp)}°</div>
         <div className='CurrentIcon'>
-          <img className='s16' src={cloud} alt="cloudsvg"></img>
+          <img className='s16 CurrentIconCloud' src={weather} alt="cloudsvg"></img>
         </div>
         <div className='currentIconRain p8'>
           {pop}%

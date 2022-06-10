@@ -17,6 +17,7 @@ export const QUERY_CITY_LOCATION = gql`
   query GetCityByLocation ($lat:Float, $lon:Float) {
   getCityByLocation(lon:$lon, lat: $lat) {
   	hourly{
+      dt
       temp
 			weather{
         id

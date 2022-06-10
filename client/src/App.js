@@ -16,7 +16,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(
   )
 });
-
+const history = async () => localStorage.getItem('Lastcity')
 
 function App() {
 
@@ -25,20 +25,26 @@ function App() {
       <ApolloProvider client={client}>
         <ApiProvider>
           <Search />
-          <div className='WeatherMain'>
-            <div className='WidgetWidget' >
-              <WeatherWidget />
+          {history ?
+            <div className='WeatherMain'>
+              <div className='WidgetWidget' >
+                <WeatherWidget />
+              </div>
+              <div className='WeekContainer'>
+                <WeekContainer />
+              </div>
+              <div className='HourlyContainer'>
+                <HourlyContainer />
+              </div>
+              <div className='SnapshotContainer' >
+                <Snapshot />
+              </div>
             </div>
-            <div className='WeekContainer'>
-              <WeekContainer />
-            </div>
-            <div className='HourlyContainer'>
-              <HourlyContainer />
-            </div>
-            <div className='SnapshotContainer' >
-              <Snapshot />
-            </div>
-          </div>
+            :
+            <div></div>
+
+          }
+
         </ApiProvider>
       </ApolloProvider>
     </>

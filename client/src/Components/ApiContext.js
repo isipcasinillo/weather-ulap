@@ -9,11 +9,12 @@ import {
 const ApiContext = createContext({})
 
 export const ApiProvider = ({ children }) => {
-    const [CurrentCityText, setCurrentCityText] = useState(localStorage.getItem('Lastcity'))
+    const [CurrentCityText, setCurrentCityText] = useState(localStorage.getItem('Lastcity') == null ? 'dallas' : localStorage.getItem('Lastcity'))
     const [getWeather] = useLazyQuery(QUERY_CITY_NAME);
     const [getWeatherLocation] = useLazyQuery(QUERY_CITY_LOCATION);
     const [dataFromDb, setDataFromDb] = useState({})
     const [arrayData, setArrayData] = useState([])
+    const [hourlyData, setHourlyData] = useState([])
     const [isLoading, setLoading] = useState(true)
     let db = new Localbase('weatherDb')
 
@@ -92,7 +93,7 @@ export const ApiProvider = ({ children }) => {
         console.log(CurrentCityText)
         try {
             // if document does not exist in database
-            if (!isDocumentinDb) {
+            if (isDocumentinDb == null) {
                 const fetchFromApi = await FetchCityByName()
                 if (!fetchFromApi) {
                     return false
@@ -116,7 +117,9 @@ export const ApiProvider = ({ children }) => {
             await setLoading(false)
             const response = await db.collection('weatherDb').doc({ city: CurrentCityText }).get()
             const dailyarray = response.metadata.daily
+            const hourlyarray = response.metadata.hourly
             await setArrayData(dailyarray)
+            await setHourlyData(hourlyarray)
             localStorage.setItem('Lastcity', CurrentCityText)
         }
     }
@@ -149,10 +152,8 @@ export const ApiProvider = ({ children }) => {
         }
     }
     useEffect(() => {
-        if (localStorage.getItem('Lastcity') === null) {
-            localStorage.setItem('Lastcity', 'mexico')
 
-        }
+        console.log('inti')
         setCurrentCityText(localStorage.getItem('Lastcity'))
         InitializeData()
     }, [])
@@ -164,7 +165,8 @@ export const ApiProvider = ({ children }) => {
             handleCityText,
             dataFromDb,
             isLoading,
-            arrayData
+            arrayData,
+            hourlyData
         }}>
             {children}
         </ApiContext.Provider>
