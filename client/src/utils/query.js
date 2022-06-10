@@ -25,12 +25,12 @@ export const QUERY_CITY_LOCATION = gql`
       }
     }
     daily{
+      dt
       temp{
         min
         max
       }
       pop
-      dt
       weather{
         id
         icon
