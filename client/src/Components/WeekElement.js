@@ -21,7 +21,7 @@ function WeekElement({ hitemp, lowtemp, pop, dt, today, icon }) {
           <img className='s16 CurrentIconCloud' src={weather} alt="cloudsvg"></img>
         </div>
         <div className='currentIconRain p8'>
-          {pop}%
+          {Math.floor(pop)}%
         </div>
       </div>
     </>
