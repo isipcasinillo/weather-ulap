@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 .WeatherHourly {
-    width: 358px;
+    width: 342px;
     height: 130px;
     border-radius: 10px;
     background-color: white;
@@ -18,8 +18,10 @@
     scroll-padding: 0 20px;
 }
 .WeatherHourlyWrapper{
-  background-color: red;
-  width: 1116px;
+  background-color: white;
+  border-radius: 10px;
+  width: 358px;
+  margin: auto;
 }
 ::-webkit-scrollbar {
     display: none;

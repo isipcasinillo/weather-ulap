@@ -9,22 +9,21 @@ function Hour({ temp, weather, dt, today, timezone, className }) {
   const { isLoading,
   } = useContext(ApiContext)
   const currentDt = moment.unix(dt).tz(timezone).format('ha')
-  console.log(currentDt ,dt, timezone )
-  
   return (
     <>
       <>
         <div className={className}>
           <div>
             {today ? <div>NOW</div> : <div>
-              {currentDt ? <div> {currentDt}</div> : <div> HELLO</div>}
+              {currentDt ? <div> {currentDt}</div> : <div></div>}
             </div>}
           </div>
 
           <div className="HourImg md8">
             {isLoading ?
-              <img className='HourImgSvg' src={cloud} alt="react" /> :
-              <img className='HourImgSvg' src={weatherx} alt="react" />
+              <img className='HourImgSvg' src={cloud} alt="defaulthourimg" /> :
+              <img className='HourImgSvg' src={weatherx} alt="hourimg" />
+              
             }
           </div>
           <div className='md8'>{Math.floor(temp)}°</div>

@@ -108,7 +108,9 @@ export const ApiProvider = ({ children }) => {
 
     }
     const InitializeData = async () => {
-        if (CurrentCityText === '') return
+        if (CurrentCityText === '') {
+            setCurrentCityText(localStorage.getItem('Lastcity'))
+        }
         const x = await checkDatabase()
         const y = await checkIfExpired() // true
         if (x && y) {
