@@ -5,7 +5,6 @@ import Moment from 'react-moment';
 function WeekElement({ hitemp, lowtemp, pop, dt, today, icon }) {
   const weather = ` http://openweathermap.org/img/wn/${icon}@4x.png`
   const currentDate = new Date(dt * 1000)
-  console.log(pop)
   return (
     <>
       <div className="DayCard">

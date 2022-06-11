@@ -91,7 +91,6 @@ export const ApiProvider = ({ children }) => {
 
     const checkDatabase = async () => {
         const isDocumentinDb = await db.collection('weatherDb').doc({ city: CurrentCityText }).get()
-        console.log(CurrentCityText)
         try {
             // if document does not exist in database
             if (isDocumentinDb == null) {
@@ -109,10 +108,9 @@ export const ApiProvider = ({ children }) => {
 
     }
     const InitializeData = async () => {
-        // if (CurrentCityText === '') return
+        if (CurrentCityText === '') return
         const x = await checkDatabase()
         const y = await checkIfExpired() // true
-        console.log(x, y)
         if (x && y) {
             await getDataDb()
             await setLoading(false)
@@ -124,7 +122,6 @@ export const ApiProvider = ({ children }) => {
             await setArrayData(dailyarray)
             await setHourlyData(hourlyarray)
             localStorage.setItem('Lastcity', CurrentCityText)
-            console.log('getgetget')
         }
     }
     const SubmitRequest = async (e) => {
@@ -156,8 +153,6 @@ export const ApiProvider = ({ children }) => {
         }
     }
     useEffect(() => {
-
-        console.log('inti')
         setCurrentCityText(localStorage.getItem('Lastcity'))
         InitializeData()
     }, [])
