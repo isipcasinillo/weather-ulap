@@ -11,7 +11,7 @@ const typeDefs = gql`
         coord: Coordinates
     }
     type WeatherResponseLonLat {
-
+        timezone: String
         current: Current
         hourly: [Hourly]
         daily: [Daily]

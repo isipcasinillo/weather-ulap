@@ -16,6 +16,7 @@ export const ApiProvider = ({ children }) => {
     const [arrayData, setArrayData] = useState([])
     const [hourlyData, setHourlyData] = useState([])
     const [isLoading, setLoading] = useState(true)
+    const [timezone, setTimezone] = useState('')
     let db = new Localbase('weatherDb')
 
     const handleCityText = (event) => {
@@ -116,11 +117,14 @@ export const ApiProvider = ({ children }) => {
             await getDataDb()
             await setLoading(false)
             const response = await db.collection('weatherDb').doc({ city: CurrentCityText }).get()
+            const timezoneData = response.metadata.timezone
+            setTimezone(timezoneData)
             const dailyarray = response.metadata.daily
             const hourlyarray = response.metadata.hourly
             await setArrayData(dailyarray)
             await setHourlyData(hourlyarray)
             localStorage.setItem('Lastcity', CurrentCityText)
+            console.log('getgetget')
         }
     }
     const SubmitRequest = async (e) => {
@@ -166,7 +170,8 @@ export const ApiProvider = ({ children }) => {
             dataFromDb,
             isLoading,
             arrayData,
-            hourlyData
+            hourlyData,
+            timezone
         }}>
             {children}
         </ApiContext.Provider>

@@ -16,6 +16,7 @@ export const QUERY_CITY_NAME = gql`
 export const QUERY_CITY_LOCATION = gql`
   query GetCityByLocation ($lat:Float, $lon:Float) {
   getCityByLocation(lon:$lon, lat: $lat) {
+    timezone
   	hourly{
       dt
       temp

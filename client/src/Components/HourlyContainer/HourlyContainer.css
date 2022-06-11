@@ -17,9 +17,12 @@
     padding-bottom: 8px; */
     overflow-x: auto;
     margin-bottom: 24px;
-    padding-left: 16px;
+    scroll-padding: 0 20px;
 }
-
+.WeatherHourlyWrapper{
+  background-color: red;
+  width: 1116px;
+}
 ::-webkit-scrollbar {
     display: none;
 }
@@ -27,6 +30,11 @@
 @media only screen and (min-width: 1000px) {
   .WeatherHourly {
 
+    /* width: 1116px; */
+    width: 1084px;
+  }
+  .WeatherHourlyWrapper{
+    background-color: white;
     width: 1116px;
   }
 }

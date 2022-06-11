@@ -5,6 +5,7 @@ import Moment from 'react-moment';
 function WeekElement({ hitemp, lowtemp, pop, dt, today, icon }) {
   const weather = ` http://openweathermap.org/img/wn/${icon}@4x.png`
   const currentDate = new Date(dt * 1000)
+  console.log(pop)
   return (
     <>
       <div className="DayCard">
@@ -17,12 +18,17 @@ function WeekElement({ hitemp, lowtemp, pop, dt, today, icon }) {
           <Moment format="MM/DD">{currentDate}</Moment></div>
         <div className='CurrentHighTemp asc p16'>{Math.floor(hitemp)}°</div>
         <div className='CurrentLowTemp asc p16'>{Math.floor(lowtemp)}°</div>
-        <div className='CurrentIcon'>
-          <img className='s16 CurrentIconCloud' src={weather} alt="cloudsvg"></img>
-        </div>
-        <div className='currentIconRain p8'>
-          {Math.floor(pop)}%
-        </div>
+        {(pop <= 0) ?
+          <></> : <>
+            <div className='CurrentIcon'>
+              <img className='s16 CurrentIconCloud' src={weather} alt="cloudsvg"></img>
+            </div>
+            <div className='currentIconRain p8'>
+
+
+              {Math.floor(pop)}%
+            </div></>}
+
       </div>
     </>
   )
