@@ -17,7 +17,9 @@ function Hour({ temp, weather, dt, today, timezone, padding, className }) {
           padding
         } >
           <div>
-            {today ? <div>NOW</div> : <div>{currentDt}</div>}
+            {today ? <div>NOW</div> : <div>
+              {currentDt ? <div> {currentDt}</div> : <div> {moment.unix(dt).format('ha')}</div>}
+            </div>}
           </div>
 
           <div className="HourImg md8">
