@@ -8,17 +8,20 @@ function Hour({ temp, weather, dt, today, timezone, padding, className }) {
   const weatherx = ` http://openweathermap.org/img/wn/${weather}@4x.png`
   const { isLoading,
   } = useContext(ApiContext)
-  const currentDt = moment.unix(dt)?.utc(timezone)
+  const currentDt = moment.unix(dt)?.utc(timezone).format('ha')
+  console.log(currentDt)
+  console.log(dt)
+  console.log(timezone)
   // const currentDt = '6am'
   return (
     <>{
-      isLoading ? <div></div> : <>
+      isLoading ? <div>HELLO</div> : <>
         < div className={className} style={
           padding
         } >
           <div>
             {today ? <div>NOW</div> : <div>
-              {currentDt ? <div> {currentDt}</div> : <div> {moment.unix(dt).format('ha')}</div>}
+              {currentDt ? <div> HELLO</div> : <div> {currentDt}</div>}
             </div>}
           </div>
 
