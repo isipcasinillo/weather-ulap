@@ -1,6 +1,6 @@
-import WeatherWidget from './Components/WeatherWidget';
+import WeatherWidget from './Components/WeatherWidget/WeatherWidget';
 import HourlyContainer from './Components/HourlyContainer/HourlyContainer';
-import WeekContainer from './Components/WeekContainer';
+import WeekContainer from './Components/WeekContainer/WeekContainer';
 import Snapshot from './Components/Snapshot/Snapshot';
 import { ApiProvider } from './Components/ApiContext'
 import './WeatherMain.css'
@@ -9,7 +9,7 @@ import {
   InMemoryCache,
   ApolloProvider,
 } from "@apollo/client";
-import Search from './Components/Search';
+import Search from './Components/Search/Search';
 
 const client = new ApolloClient({
   uri: '/graphql',

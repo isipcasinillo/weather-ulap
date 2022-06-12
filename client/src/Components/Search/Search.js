@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import ApiContext from './ApiContext'
+import ApiContext from '../ApiContext'
 function Search() {
     const { SubmitRequest, CurrentCityText, handleCityText } = useContext(ApiContext)
     return (

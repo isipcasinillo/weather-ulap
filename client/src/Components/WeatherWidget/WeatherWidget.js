@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import './WeatherWidget.css'
-import cloud from '../utils/cloud.svg'
-import ApiContext from './ApiContext'
+import cloud from '../../utils/cloud.svg'
+import ApiContext from '../ApiContext'
 function WeatherWidget() {
     const { dataFromDb, hourlyData, isLoading, arrayData } = useContext(ApiContext)
     const weather = ` http://openweathermap.org/img/wn/${arrayData[1]?.weather[0].icon}@4x.png`

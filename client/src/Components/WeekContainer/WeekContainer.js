@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
-import WeekElement from './WeekElement'
+import WeekElement from '../WeekElement/WeekElement'
 import './WeekContainer.css'
-import ApiContext from './ApiContext'
+import ApiContext from '../ApiContext'
 function WeekContainer() {
 
   const { arrayData } = useContext(ApiContext)

@@ -1,6 +1,6 @@
 import React from 'react'
 import './WeekElement.css'
-import cloud from './../utils/cloud.svg'
+import cloud from '../../utils/cloud.svg'
 import Moment from 'react-moment';
 function WeekElement({ hitemp, lowtemp, pop, dt, today, icon }) {
   const weather = ` http://openweathermap.org/img/wn/${icon}@4x.png`
