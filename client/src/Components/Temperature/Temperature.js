@@ -8,11 +8,11 @@ function Temperature() {
                 <div className='HiLowTemp'>
                     <div>
                         <div className='p32 pdb8'>78°</div>
-                        <div className='pd42 p16'>Highest</div>
+                        <div className='pdb42 p16'>Highest</div>
                     </div>
                     <div className='pdl30'>
                         <div className='p32 pdb8'>68°</div>
-                        <div className='pd42 p16'>Lowest</div>
+                        <div className='pdb42 p16'>Lowest</div>
                     </div>
                 </div>
 

@@ -2,7 +2,7 @@
 */
 
 .DayCard {
-
+    border-radius: 5px;
     width: 358px;
     height: 32px;
     display: flex;

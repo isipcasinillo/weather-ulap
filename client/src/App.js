@@ -24,10 +24,12 @@ function App() {
     <>
       <ApolloProvider client={client}>
         <ApiProvider>
-          <Search />
+       
           {history ?
             <div className='WeatherMain'>
+              
               <div className='WidgetWidget' >
+                <Search />
                 <WeatherWidget />
               </div>
               <div className='WeekContainer'>

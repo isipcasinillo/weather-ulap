@@ -22,19 +22,20 @@
 
 @media only screen and (min-width: 1000px) {
 
-.WeatherMain {
-    display: grid;
-    grid-template-columns: 550px 550px;
-    grid-template-rows: 272px 130px 184px;
-    grid-column-gap: 16px;
-    grid-row-gap: 16px;
-    grid-template-areas:
-    "WidgetWidget WeekContainer"
-    "HourlyContainer HourlyContainer"
-    "SnapshotContainer SnapshotContainer";
-}
+    .WeatherMain {
+        padding-top: 234px;
+        display: grid;
+        grid-template-columns: 550px 550px;
+        grid-template-rows: 272px 130px 184px;
+        grid-column-gap: 16px;
+        grid-row-gap: 16px;
+        grid-template-areas:
+        "WidgetWidget WeekContainer"
+        "HourlyContainer HourlyContainer"
+        "SnapshotContainer SnapshotContainer";
+    }
 
-.WidgetWidget {
+    .WidgetWidget {
     order: 1;
     }
     .HourlyContainer {
