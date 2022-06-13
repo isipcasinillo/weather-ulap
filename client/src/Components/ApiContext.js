@@ -4,7 +4,8 @@ import React, { createContext, useEffect, useState } from 'react'
 import Localbase from 'localbase'
 import {
     QUERY_CITY_NAME,
-    QUERY_CITY_LOCATION
+    QUERY_CITY_LOCATION,
+    QUERY_API_POLLUTION
 } from '../utils/query'
 const ApiContext = createContext({})
 
@@ -12,11 +13,14 @@ export const ApiProvider = ({ children }) => {
     const [CurrentCityText, setCurrentCityText] = useState(localStorage.getItem('Lastcity') == null ? 'dallas' : localStorage.getItem('Lastcity'))
     const [getWeather] = useLazyQuery(QUERY_CITY_NAME);
     const [getWeatherLocation] = useLazyQuery(QUERY_CITY_LOCATION);
+    const [getApiPollution] = useLazyQuery(QUERY_API_POLLUTION)
     const [dataFromDb, setDataFromDb] = useState({})
     const [arrayData, setArrayData] = useState([])
     const [hourlyData, setHourlyData] = useState([])
     const [isLoading, setLoading] = useState(true)
     const [timezone, setTimezone] = useState('')
+    const [currentData, setCurrentData]= useState('')
+    const [apiPollutionState, setApiPollutionState] = useState('')
     let db = new Localbase('weatherDb')
 
     const handleCityText = (event) => {
@@ -32,6 +36,7 @@ export const ApiProvider = ({ children }) => {
         const newExpireToken = now + expireToken
         return newExpireToken
     }
+
     // when called will take the API JSON, and API query cityname and insert to Database
     const addDataToDb = async (data, cityName) => {
         try {
@@ -43,7 +48,6 @@ export const ApiProvider = ({ children }) => {
         } catch (e) {
             console.log(e)
         }
-
     }
 
     // function called to delete document in the indexdb
@@ -53,7 +57,6 @@ export const ApiProvider = ({ children }) => {
         } catch (e) {
             console.log(e)
         }
-
     }
 
     const getDataDb = async () => {
@@ -80,7 +83,6 @@ export const ApiProvider = ({ children }) => {
                 }
                 console.log(responseCheck)
                 await addDataToDb(responseCheck, CurrentCityText)
-
             }
             return true
 
@@ -98,7 +100,6 @@ export const ApiProvider = ({ children }) => {
                 if (!fetchFromApi) {
                     return false
                 }
-
                 await addDataToDb(fetchFromApi, CurrentCityText)
             }
             return true
@@ -107,6 +108,7 @@ export const ApiProvider = ({ children }) => {
         }
 
     }
+
     const InitializeData = async () => {
         if (CurrentCityText === '') {
             setCurrentCityText(localStorage.getItem('Lastcity'))
@@ -117,43 +119,53 @@ export const ApiProvider = ({ children }) => {
             await getDataDb()
             await setLoading(false)
             const response = await db.collection('weatherDb').doc({ city: CurrentCityText }).get()
-            const timezoneData = response.metadata.timezone
+            const timezoneData = response.metadata[0].timezone
             setTimezone(timezoneData)
-            const dailyarray = response.metadata.daily
-            const hourlyarray = response.metadata.hourly
+            const dailyarray = response.metadata[0].daily
+            const hourlyarray = response.metadata[0].hourly
             await setArrayData(dailyarray)
             await setHourlyData(hourlyarray)
+            const currentUvi = response.metadata[1]
+            await setApiPollutionState(currentUvi)
+            const currentData = response.metadata[0].current
+            await setCurrentData(currentData)
             localStorage.setItem('Lastcity', CurrentCityText)
         }
     }
-    const SubmitRequest = async (e) => {
 
+    const SubmitRequest = async (e) => {
         e.preventDefault()
         await InitializeData()
-
-
     }
+
     // fetches using the variable then calls on function below to call with lon and lat
     const FetchCityByName = async () => {
+       
         try {
             const y = CurrentCityText
             const getWeatherApiResponse = await getWeather({ variables: { cityname: y } })
+            
             const err = getWeatherApiResponse.data.getCityByName.coord
             if (err === null) {
                 setCurrentCityText(localStorage.getItem('Lastcity'))
+                
                 return
             }
+         
             localStorage.setItem('Lastcity', y)
             const { lon, lat } = getWeatherApiResponse.data.getCityByName.coord
             const getWeatherLocationResponse = await getWeatherLocation({ variables: { lon: lon, lat: lat } })
-
-
             const ResponseData = getWeatherLocationResponse.data.getCityByLocation
-            return ResponseData
+            const getPollutionApi = await getApiPollution({variables: { lon: lon, lat: lat } })
+            const getPollutionApiResponse = getPollutionApi.data.getPollutionindex.list[0].main.aqi
+
+            await setApiPollutionState(getPollutionApiResponse)
+            return [ResponseData,getPollutionApiResponse  ]
         } catch (e) {
             return
         }
     }
+
     useEffect(() => {
         setCurrentCityText(localStorage.getItem('Lastcity'))
         InitializeData()
@@ -168,7 +180,9 @@ export const ApiProvider = ({ children }) => {
             isLoading,
             arrayData,
             hourlyData,
-            timezone
+            timezone,
+            apiPollutionState,
+            currentData
         }}>
             {children}
         </ApiContext.Provider>

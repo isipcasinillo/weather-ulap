@@ -14,7 +14,7 @@ function Hour({ temp, weather, dt, today, timezone, className }) {
       <>
         <div className={className}>
           <div>
-            {today ? <div>NOW</div> : <div>
+            {today ? <div>Now</div> : <div>
               {currentDt ? <div> {currentDt}</div> : <div></div>}
             </div>}
           </div>

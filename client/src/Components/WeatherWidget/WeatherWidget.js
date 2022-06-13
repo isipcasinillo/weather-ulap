@@ -14,16 +14,16 @@ function WeatherWidget() {
                         <div className='h32 p32 pdb8'>
                             {isLoading ?
                                 <div>.....</div> :
-                                <div>{Math.floor(hourlyData[0]?.temp)} ° </div>
+                                <div>{Math.floor(hourlyData[0]?.temp)}° </div>
                             }
 
                         </div>
                         <div className='d pdb8'>
                             {isLoading ? <div className='p16 pr4'>H:0.00°</div> :
-                                <div className='p16 pr4'>H:{Math.floor(dataFromDb.metadata.daily[1].temp.max)}°</div>
+                                <div className='p16 pr4'>H:{Math.floor(dataFromDb.metadata[0].daily[1].temp.max)}°</div>
                             }
                             {isLoading ? <div className='p16 pr4'>H:0.00°</div> :
-                                <div className='p16'>L: {Math.floor(dataFromDb.metadata.daily[1].temp.min)}°</div>
+                                <div className='p16'>L: {Math.floor(dataFromDb.metadata[0].daily[1].temp.min)}°</div>
                             }
                         </div>
 

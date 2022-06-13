@@ -27,7 +27,16 @@ const resolvers = {
             } catch (e) {
                 console.log(e)
             }
-        }
+        },
+        getPollutionindex: async (_, {lon, lat}) => {
+            try {
+                const responselonlat = await fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`)
+                const responsePollution = await responselonlat.json()
+                return responsePollution
+            } catch (e) {
+                console.log(e)
+            }
+        },
     },
 };
 

@@ -5,6 +5,17 @@ const typeDefs = gql`
     type Query {
         getCityByName(cityname: String): WeatherResponseCityName
         getCityByLocation(lon: Float, lat: Float): WeatherResponseLonLat
+        getPollutionindex(lon: Float, lat: Float): AirPollution
+    }
+    type AirPollution {
+        list: [List]
+    }
+    type List {
+        main: Aqi
+    }
+
+    type Aqi {
+        aqi:  Int
     }
     type WeatherResponseCityName {
         id: ID
@@ -38,8 +49,12 @@ const typeDefs = gql`
         dt: Int
         sunrise: Int
         sunset: Int
-
+        humidity: Int
+        uvi: Float
+        dew_point: Float
+        weather: Weather
     }
+
     type Hourly {
         dt: Int
         temp: Float
@@ -49,6 +64,7 @@ const typeDefs = gql`
     type Weather {
         id: Int
         icon: String
+        description: String
     }
     type Coordinates {
         lon: Float
