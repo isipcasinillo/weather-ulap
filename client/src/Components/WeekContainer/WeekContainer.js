@@ -11,7 +11,7 @@ function WeekContainer() {
 
       <div className='pbm32 WeekContainerComponent'>
         {arrayData &&
-          arrayData.slice(1).map((day, index) => {
+          arrayData.slice(0).map((day, index) => {
             if (index === 0) {
               return <WeekElement key={index} icon={day.weather[0].icon} hitemp={day.temp.max} lowtemp={day.temp.min} pop={day.pop * 100} dt={day.dt} today={'Today'} />
             }
